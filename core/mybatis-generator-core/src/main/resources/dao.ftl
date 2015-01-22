@@ -1,25 +1,16 @@
 package ${package};
-<#list imports as import>
-import ${import}
-</#list>
+
 import java.util.List;
 import java.util.Map;
-import com.pahaoche.base.page.Page;
-import com.pahaoche.base.page.QueryResult;
-/**
- * dao
- * @author ${user}
- *
- */
-public interface ${bean}Dao {
 
-	${bean} queryById(Object id);
 
-	List<${bean}> list(Map<?,?> map);
+public interface ${className}Dao {
 
-	QueryResult<${bean}> listPage(Map<?,?> map, Page<${bean}> page);
+	${className} queryById(Object id);
 
-	int update(${bean} entity);
+	List<${className}> list(Map<?,?> map);
+
+	int update(${className} entity);
 	
-	int create(${bean} entity);
+	int insert(${className} entity);
 }
