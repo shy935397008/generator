@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://shy935397008.github.io"
+	xmlns:tns="http://shy935397008.github.io/constant" elementFormDefault="qualified">
+	<element name="constants">
+		<complexType>
+			<sequence>
+				<element name="constant" minOccurs="1" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="propertity" minOccurs="1" maxOccurs="unbounded">
+								<complexType>
+									<attribute name="className" type="string" use="required">
+										<simpleType>
+											<restriction>
+												<minLength value="1"></minLength>
+											</restriction>
+										</simpleType>
+									</attribute>
+									<attribute name="propertity" type="string" use="required">
+										<simpleType>
+											<restriction>
+												<minLength value="1"></minLength>
+											</restriction>
+										</simpleType>
+									</attribute>
+									<attribute name="value" type="string" use="required">
+										<simpleType>
+											<restriction>
+												<minLength value="1"></minLength>
+											</restriction>
+										</simpleType>
+									</attribute>
+								</complexType>
+							</element>
+						</sequence>
+						<attribute name="className" type="string" use="required">
+							<simpleType>
+								<restriction>
+									<minLength value="1"></minLength>
+								</restriction>
+							</simpleType>
+						</attribute>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

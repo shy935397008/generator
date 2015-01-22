@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://shy935397008.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://shy935397008.github.io bean.xsd ">
+  <bean className="com.yang.entity.User">
+    <propertity className="java.lang.String" propertity="id"/>
+    <propertity className="java.lang.String" propertity="name"/>
+    <propertity className="java.lang.String" propertity="password"/>
+    <propertity className="int" propertity="age"/>
+  </bean>
+</beans>
