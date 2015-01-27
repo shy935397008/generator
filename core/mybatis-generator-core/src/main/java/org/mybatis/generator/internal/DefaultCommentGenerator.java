@@ -204,6 +204,7 @@ public class DefaultCommentGenerator implements CommentGenerator {
         sb.append(introspectedTable.getFullyQualifiedTable());
         sb.append('.');
         sb.append(introspectedColumn.getActualColumnName());
+        sb.append(" "+introspectedColumn.getRemarks());
         field.addJavaDocLine(sb.toString());
 
         addJavadocTag(field, false);
