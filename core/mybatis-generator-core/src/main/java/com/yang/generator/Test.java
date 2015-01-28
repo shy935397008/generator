@@ -36,7 +36,7 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class GenTest {
+public class Test {
 	private static final String CONSTANT = "constant";
 	private static final String BEAN = "bean";
 
@@ -63,7 +63,7 @@ public class GenTest {
 	private static final String CONTROLLER = "controller";
 
 	/**
-	 * 解析配置文件
+	 * 瑙ｆ瀽閰嶇疆鏂囦欢
 	 * @param listC
 	 * @param fileName
 	 * @throws ParserConfigurationException
@@ -133,8 +133,8 @@ public class GenTest {
 	}
 
 	/**
-	 * 获取模板
-	 * @param fileName 模板名
+	 * 鑾峰彇妯℃澘
+	 * @param fileName 妯℃澘鍚�
 	 * @return
 	 * @throws IOException
 	 */
@@ -203,7 +203,7 @@ public class GenTest {
 					// --------------------------------------------5.VIEW----------------------------------------------------------------
 					// TODO GEN HTML
 				} else if (url.contains(CONSTANT)) {
-					// properties 常量
+					// properties 甯搁噺
 					String cons = baseDir + File.separator + CONSTANT;
 					genDir(cons);
 					List<? extends Property> list = constant.getList();
@@ -232,7 +232,7 @@ public class GenTest {
 	}
 
 	/**
-	 * 首字母大写
+	 * 棣栧瓧姣嶅ぇ鍐�
 	 * @param str
 	 * @return
 	 */
@@ -243,8 +243,8 @@ public class GenTest {
 	}
 
 	/**
-	 * 文件夹生成
-	 * @param dir 文件夹
+	 * 鏂囦欢澶圭敓鎴�
+	 * @param dir 鏂囦欢澶�
 	 */
 	private static void genDir(String dir) {
 		if (dir != null && !"".equals(dir.trim())) {
@@ -256,10 +256,10 @@ public class GenTest {
 	}
 
 	/**
-	 * 根据模板生成文件
-	 * @param map 数据 model
-	 * @param tmpName 模板名称
-	 * @param f 要生成的文件
+	 * 鏍规嵁妯℃澘鐢熸垚鏂囦欢
+	 * @param map 鏁版嵁 model
+	 * @param tmpName 妯℃澘鍚嶇О
+	 * @param f 瑕佺敓鎴愮殑鏂囦欢
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
@@ -273,7 +273,7 @@ public class GenTest {
 	}
 
 	/**
-	 * 文件拷贝
+	 * 鏂囦欢鎷疯礉
 	 * @param fileName
 	 * @throws IOException
 	 */
@@ -296,14 +296,14 @@ public class GenTest {
 	}
 
 	/**
-	 * 用来生产dao或 service或 constroller
+	 * 鐢ㄦ潵鐢熶骇dao鎴�service鎴�constroller
 	 * @param baseDir
 	 * @param map
 	 * @param constant
 	 * @param layer DAO/SERVICE/CONTROLLER
-	 * @param tmp 模板
+	 * @param tmp 妯℃澘
 	 * @param list importList
-	 * @return 生成的类完全名
+	 * @return 鐢熸垚鐨勭被瀹屽叏鍚�
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
