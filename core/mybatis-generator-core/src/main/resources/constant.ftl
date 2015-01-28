@@ -2,8 +2,8 @@ package ${package};
 
 public enum ${className}{
 
-	<#list propertites as propertity>
-	${propertity.propertity?upper_case}("${propertity.propertity}","${propertity.value}"),
+	<#list properties as property>
+	${property.property?upper_case}("${property.property}","${property.value}"),
 	
 	</#list>;
 	private String key;

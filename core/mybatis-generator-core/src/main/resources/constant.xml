@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<constants xmlns="http://shy935397008.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://shy935397008.github.io constant.xsd ">
-  <constant className="com.yang.constant.Hello">
-    <propertity className="java.lang.String" propertity="hello" value="你好"/>
-    <propertity propertity="world" className="java.lang.String" value="世界"/>
-  </constant>
+<constants xmlns="http://shy935397008.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://shy935397008.github.io constant.xsd ">
+	<constant className="com.yang.constant.Hello">
+		<property className="java.lang.String" property="hello"
+			value="你好" />
+		<property property="world" className="java.lang.String"
+			value="世界" />
+	</constant>
 </constants>

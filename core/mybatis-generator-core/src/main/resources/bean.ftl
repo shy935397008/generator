@@ -1,16 +1,18 @@
 package ${package};
-
+<#list import as imp>
+import ${imp};
+</#list>
 public class ${className} {
 
-	<#list propertites as propertity>
-	private ${propertity.className} ${propertity.propertity};
+	<#list properties as property>
+	private ${property.className} ${property.property};
 	
-	public ${propertity.className} get${propertity.propertity?cap_first}() {
-		return ${propertity.propertity};
+	public ${property.className} get${property.property?cap_first}() {
+		return ${property.property};
 	}
 
-	public void set${propertity.propertity?cap_first}(${propertity.className} ${propertity.propertity}) {
-		this.${propertity.propertity} = ${propertity.propertity};
+	public void set${property.property?cap_first}(${property.className} ${property.property}) {
+		this.${property.property} = ${property.property};
 	}
 	</#list>
 }

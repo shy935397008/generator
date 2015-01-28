@@ -7,7 +7,7 @@
 				<element name="bean" minOccurs="1" maxOccurs="unbounded">
 					<complexType>
 						<sequence>
-							<element name="propertity" minOccurs="1" maxOccurs="unbounded">
+							<element name="property" minOccurs="1" maxOccurs="unbounded">
 								<complexType>
 									<attribute name="className" type="string" use="required">
 										<simpleType>
@@ -16,7 +16,7 @@
 											</restriction>
 										</simpleType>
 									</attribute>
-									<attribute name="propertity" type="string" use="required">
+									<attribute name="property" type="string" use="required">
 										<simpleType>
 											<restriction>
 												<minLength value="1"></minLength>
