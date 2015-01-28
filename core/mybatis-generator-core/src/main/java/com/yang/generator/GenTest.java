@@ -27,12 +27,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-//import com.yang.core.AbstractBean;
-//import com.yang.core.Constant;
-//import com.yang.core.Property;
-
-
-
 
 import com.yang.core.AbstractBean;
 import com.yang.core.Constant;
@@ -213,7 +207,8 @@ public class GenTest {
 					// properties 常量
 					String cons = baseDir + File.separator + CONSTANT;
 					genDir(cons);
-					List<? extends Property> list = constant.getList();
+					@SuppressWarnings("unchecked")
+					List<Property> list =(List<Property>) constant.getList();
 					Properties p = new Properties();
 					for (Property pro : list) {
 						p.put(constant.getPack() + DOT

@@ -1,6 +1,5 @@
 package com.yang.core;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +8,7 @@ public class AbstractBean {
 
 	private String className;
 	private String pack;
-	private List<? extends Property> list = new ArrayList<Property>();
+	private List<? extends AbstractProperty> list;
 	private Set<String> imports=new HashSet<String>();
 
 	public String getClassName() {
@@ -28,11 +27,11 @@ public class AbstractBean {
 		this.pack = pack;
 	}
 
-	public List<? extends Property> getList() {
+	public List<? extends AbstractProperty> getList() {
 		return list;
 	}
 
-	public void setList(List<? extends Property> list) {
+	public void setList(List<? extends AbstractProperty> list) {
 		this.list = list;
 	}
 
