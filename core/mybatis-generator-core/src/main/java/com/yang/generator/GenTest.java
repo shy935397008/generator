@@ -31,12 +31,19 @@ import org.xml.sax.SAXException;
 //import com.yang.core.Constant;
 //import com.yang.core.Property;
 
+
+
+
+import com.yang.core.AbstractBean;
+import com.yang.core.Constant;
+import com.yang.core.Property;
+
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class Test {
+public class GenTest {
 	private static final String CONSTANT = "constant";
 	private static final String BEAN = "bean";
 
@@ -140,7 +147,7 @@ public class Test {
 	 */
 	public static Template getTemplate(String fileName) throws IOException {
 		Configuration conf = new Configuration();
-		conf.setClassForTemplateLoading(Test.class, "");
+		conf.setClassForTemplateLoading(GenTest.class, "");
 		conf.setObjectWrapper(new DefaultObjectWrapper());
 		return conf.getTemplate(fileName);
 	}
@@ -279,7 +286,7 @@ public class Test {
 	 */
 	public static void copy(String fileName) throws IOException {
 		String dir = System.getProperty("user.dir");
-		InputStream stream = Test.class.getClassLoader()
+		InputStream stream = GenTest.class.getClassLoader()
 				.getResourceAsStream(fileName);
 		BufferedOutputStream bos = new BufferedOutputStream(
 				new FileOutputStream(dir + File.separator + fileName));
@@ -332,9 +339,9 @@ public class Test {
 				}
 			}
 		} else {
-			genBean(Test.class.getClassLoader().getResource("bean.xml")
+			genBean(GenTest.class.getClassLoader().getResource("bean.xml")
 					.toString());
-			genBean(Test.class.getClassLoader().getResource("constant.xml")
+			genBean(GenTest.class.getClassLoader().getResource("constant.xml")
 					.toString());
 			copy("bean.xml");
 			copy("constant.xml");
