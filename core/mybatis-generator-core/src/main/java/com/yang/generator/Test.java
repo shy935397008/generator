@@ -27,9 +27,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.yang.core.AbstractBean;
-import com.yang.core.Constant;
-import com.yang.core.Property;
+//import com.yang.core.AbstractBean;
+//import com.yang.core.Constant;
+//import com.yang.core.Property;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -63,7 +63,7 @@ public class Test {
 	private static final String CONTROLLER = "controller";
 
 	/**
-	 * 瑙ｆ瀽閰嶇疆鏂囦欢
+	 * 解析配置文件
 	 * @param listC
 	 * @param fileName
 	 * @throws ParserConfigurationException
@@ -133,8 +133,8 @@ public class Test {
 	}
 
 	/**
-	 * 鑾峰彇妯℃澘
-	 * @param fileName 妯℃澘鍚�
+	 * 获取模板
+	 * @param fileName 模板名
 	 * @return
 	 * @throws IOException
 	 */
@@ -203,7 +203,7 @@ public class Test {
 					// --------------------------------------------5.VIEW----------------------------------------------------------------
 					// TODO GEN HTML
 				} else if (url.contains(CONSTANT)) {
-					// properties 甯搁噺
+					// properties 常量
 					String cons = baseDir + File.separator + CONSTANT;
 					genDir(cons);
 					List<? extends Property> list = constant.getList();
@@ -232,7 +232,7 @@ public class Test {
 	}
 
 	/**
-	 * 棣栧瓧姣嶅ぇ鍐�
+	 * 首字母大写
 	 * @param str
 	 * @return
 	 */
@@ -243,8 +243,8 @@ public class Test {
 	}
 
 	/**
-	 * 鏂囦欢澶圭敓鎴�
-	 * @param dir 鏂囦欢澶�
+	 * 文件夹生成
+	 * @param dir 文件夹
 	 */
 	private static void genDir(String dir) {
 		if (dir != null && !"".equals(dir.trim())) {
@@ -256,10 +256,10 @@ public class Test {
 	}
 
 	/**
-	 * 鏍规嵁妯℃澘鐢熸垚鏂囦欢
-	 * @param map 鏁版嵁 model
-	 * @param tmpName 妯℃澘鍚嶇О
-	 * @param f 瑕佺敓鎴愮殑鏂囦欢
+	 * 根据模板生成文件
+	 * @param map 数据 model
+	 * @param tmpName 模板名称
+	 * @param f 要生成的文件
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
@@ -273,7 +273,7 @@ public class Test {
 	}
 
 	/**
-	 * 鏂囦欢鎷疯礉
+	 * 文件拷贝
 	 * @param fileName
 	 * @throws IOException
 	 */
@@ -296,14 +296,14 @@ public class Test {
 	}
 
 	/**
-	 * 鐢ㄦ潵鐢熶骇dao鎴�service鎴�constroller
+	 * 用来生产dao或 service或 constroller
 	 * @param baseDir
 	 * @param map
 	 * @param constant
 	 * @param layer DAO/SERVICE/CONTROLLER
-	 * @param tmp 妯℃澘
+	 * @param tmp 模板
 	 * @param list importList
-	 * @return 鐢熸垚鐨勭被瀹屽叏鍚�
+	 * @return 生成的类完全名
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
