@@ -27,7 +27,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
 import com.yang.core.AbstractBean;
 import com.yang.core.Constant;
 import com.yang.core.Property;
@@ -65,6 +64,7 @@ public class GenTest {
 
 	/**
 	 * 解析配置文件
+	 * 
 	 * @param listC
 	 * @param fileName
 	 * @throws ParserConfigurationException
@@ -135,7 +135,9 @@ public class GenTest {
 
 	/**
 	 * 获取模板
-	 * @param fileName 模板名
+	 * 
+	 * @param fileName
+	 *            模板名
 	 * @return
 	 * @throws IOException
 	 */
@@ -208,7 +210,7 @@ public class GenTest {
 					String cons = baseDir + File.separator + CONSTANT;
 					genDir(cons);
 					@SuppressWarnings("unchecked")
-					List<Property> list =(List<Property>) constant.getList();
+					List<Property> list = (List<Property>) constant.getList();
 					Properties p = new Properties();
 					for (Property pro : list) {
 						p.put(constant.getPack() + DOT
@@ -235,18 +237,37 @@ public class GenTest {
 
 	/**
 	 * 首字母大写
+	 * 
 	 * @param str
 	 * @return
 	 */
 	public static String firstUpper(String str) {
 		char[] cs = str.toCharArray();
-		cs[0] -= 32;
+		if (Character.isLowerCase(cs[0])) {
+			cs[0] -= 32;
+		}
+		return new String(cs);
+	}
+
+	/**
+	 * 首字母大写
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String firstlower(String str) {
+		char[] cs = str.toCharArray();
+		if (Character.isUpperCase(cs[0])) {
+			cs[0] += 32;
+		}
 		return new String(cs);
 	}
 
 	/**
 	 * 文件夹生成
-	 * @param dir 文件夹
+	 * 
+	 * @param dir
+	 *            文件夹
 	 */
 	private static void genDir(String dir) {
 		if (dir != null && !"".equals(dir.trim())) {
@@ -259,9 +280,13 @@ public class GenTest {
 
 	/**
 	 * 根据模板生成文件
-	 * @param map 数据 model
-	 * @param tmpName 模板名称
-	 * @param f 要生成的文件
+	 * 
+	 * @param map
+	 *            数据 model
+	 * @param tmpName
+	 *            模板名称
+	 * @param f
+	 *            要生成的文件
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
@@ -276,6 +301,7 @@ public class GenTest {
 
 	/**
 	 * 文件拷贝
+	 * 
 	 * @param fileName
 	 * @throws IOException
 	 */
@@ -299,12 +325,16 @@ public class GenTest {
 
 	/**
 	 * 用来生产dao或 service或 constroller
+	 * 
 	 * @param baseDir
 	 * @param map
 	 * @param constant
-	 * @param layer DAO/SERVICE/CONTROLLER
-	 * @param tmp 模板
-	 * @param list importList
+	 * @param layer
+	 *            DAO/SERVICE/CONTROLLER
+	 * @param tmp
+	 *            模板
+	 * @param list
+	 *            importList
 	 * @return 生成的类完全名
 	 * @throws IOException
 	 * @throws TemplateException
@@ -325,6 +355,70 @@ public class GenTest {
 				+ DOT + constant.getClassName() + firstUpper(layer);
 	}
 
+	/**
+	 * 驼峰书写
+	 * 
+	 * @param str
+	 *            abc_abc→AbcAbc
+	 * @return
+	 */
+	public static String camel(String str) {
+		str = str.toLowerCase();
+		if (str.contains("_")) {
+			String[] split = str.split("_");
+			StringBuilder sb = new StringBuilder();
+			for (String string : split) {
+				sb.append(firstUpper(string));
+			}
+			return sb.toString();
+		}
+		return firstUpper(str);
+	}
+
+	public static void getByBean(AbstractBean constant) throws IOException,
+			TemplateException {
+		// ----------------------1.bean--------------------------
+		String dir = constant.getPack().replaceAll(UNBIAS + DOT,
+				File.separator + File.separator);
+		String[] split = constant.getPack().split("\\.");
+		String baseDir = dir.substring(0, dir.lastIndexOf(File.separator));
+		String beanDir = null;
+		beanDir = baseDir + File.separator
+				+ constant.getPack().split("\\.")[split.length - 1];
+
+		genDir(beanDir);
+		String filePath = beanDir + File.separator + constant.getClassName()
+				+ DOT + JAVA;
+		File f = new File(filePath);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PACKAGE, constant.getPack());
+		map.put(CLASSNAME, constant.getClassName());
+		map.put(PROPERTITES, constant.getList());
+		map.put(IMPORT, constant.getImports());
+		genSource(map, BEANTMP, f);
+		// --------------------------2. dao-------------------
+
+		List<String> classList = new ArrayList<String>();
+		String beanClass = constant.getPack() + DOT + constant.getClassName();
+		classList.add(beanClass);
+		String daoClass = genCode(baseDir, map, constant, DAO, DAOTMP,
+				classList);
+
+		// --------------------------3. service--------------------
+		classList.add(beanClass);
+		classList.add(daoClass);
+		String ServiceClass = genCode(baseDir, map, constant, SERVICE,
+				SERVICETMP, classList);
+		// -----------------------------4
+		// controller----------------------------------------------
+		classList.add(beanClass);
+		classList.add(ServiceClass);
+		genCode(baseDir, map, constant, CONTROLLER, CONTROLLERTMP, classList);
+
+		// --------------------------------------------5.VIEW----------------------------------------------------------------
+		// TODO GEN HTML
+	}
+
 	public static void main(String[] args) throws ParserConfigurationException,
 			SAXException, IOException, TemplateException {
 		if (args != null && args.length > 0) {
@@ -341,5 +435,6 @@ public class GenTest {
 			copy("bean.xml");
 			copy("constant.xml");
 		}
+
 	}
 }

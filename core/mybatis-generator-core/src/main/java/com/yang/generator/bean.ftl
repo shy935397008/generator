@@ -5,6 +5,9 @@ import ${imp};
 public class ${className} {
 
 	<#list properties as property>
+	/**
+	*  ${property.comment}
+	*/
 	private ${property.className} ${property.property};
 	
 	public ${property.className} get${property.property?cap_first}() {

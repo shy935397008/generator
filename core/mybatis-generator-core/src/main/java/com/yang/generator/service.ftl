@@ -8,20 +8,20 @@ public class ${className}Service {
 	//@Resource
 	${className}Dao dao;
 	
-	${className} queryById(Object id){
+	public ${className} queryById(Object id){
 		return dao.queryById(id);
 	}
 
-	List<${className}> list(Map<?,?> map){
+	public List<${className}> list(Map<?,?> map){
 		return dao.list(map);
 	}
 
 
-	int update(${className} entity){
+	public int update(${className} entity){
 		return dao.update(entity);
 	}
 	
-	int insert(${className} entity){
+	public int insert(${className} entity){
 		return dao.insert(entity);
 	}
 }

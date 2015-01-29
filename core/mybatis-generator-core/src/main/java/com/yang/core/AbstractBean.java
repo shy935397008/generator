@@ -11,6 +11,15 @@ public class AbstractBean {
 	private List<? extends AbstractProperty> list;
 	private Set<String> imports=new HashSet<String>();
 
+	private String comment;
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public String getClassName() {
 		return className;
 	}
