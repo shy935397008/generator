@@ -131,11 +131,13 @@ public class ConfigUtil {
 			bean.setClassName(GenTest.camel(dbTable.getTableName()));
 			bean.setPack(pack);
 			List<AbstractProperty> listabs=new ArrayList<AbstractProperty>();
+			//TODO 常量待續
 			for (DBColumn dbColumn : lis) {
 				AbstractProperty ab=new AbstractProperty();
 				ab.setClassName(dbColumn.getTypeName());
 				ab.setProperty(GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())));
 				ab.setComment(dbColumn.getRemarks()!=null?dbColumn.getRemarks():"");
+				//TODO 常量待續
 //				GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())); field
 //				System.err.println(dbColumn.getColumnName());
 //				dbColumn.getTypeName(); class
