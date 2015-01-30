@@ -54,11 +54,11 @@ public class TypeConvert {
 		}else if(big.intValue()==Types.DECIMAL){
 			type=BigDecimal.class.getName();return type;
 		}else if(big.intValue()==Types.CHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.VARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.LONGVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.DATE){
 			type=Date.class.getName();return type;
 		}else if(big.intValue()==Types.TIME){
@@ -92,11 +92,11 @@ public class TypeConvert {
 		}else if(big.intValue()==Types.DATALINK){
 			type=Object.class.getName();return type;
 		}else if(big.intValue()==Types.NCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.NVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.LONGNVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.NCLOB){
 			type=NClob.class.getName();return type;
 		}else if(big.intValue()==Types.SQLXML){

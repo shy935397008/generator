@@ -43,7 +43,7 @@ import freemarker.template.TemplateException;
 
 public class ConfigUtil {
 
-	private static String pack="com.yang.test";
+	private  String pack="com.yang.test";
 	
 	
 	public String getPack() {
@@ -51,7 +51,7 @@ public class ConfigUtil {
 	}
 
 	public void setPack(String pack) {
-		ConfigUtil.pack = pack;
+		this.pack = pack;
 	}
 	private static Properties p=new Properties();
 	static{
@@ -145,7 +145,7 @@ public class ConfigUtil {
 		return list;
 	}
 	/**
-	 * TypeConvert.getType(BigDecimal big);
+	 * @see TypeConvert.getType(BigDecimal big);
 	 * @param big
 	 * @return
 	 *@Deprecated
@@ -182,11 +182,11 @@ public class ConfigUtil {
 		}else if(big.intValue()==Types.DECIMAL){
 			type=BigDecimal.class.getName();return type;
 		}else if(big.intValue()==Types.CHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.VARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.LONGVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.DATE){
 			type=Date.class.getName();return type;
 		}else if(big.intValue()==Types.TIME){
@@ -220,11 +220,11 @@ public class ConfigUtil {
 		}else if(big.intValue()==Types.DATALINK){
 			type=Object.class.getName();return type;
 		}else if(big.intValue()==Types.NCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.NVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.LONGNVARCHAR){
-			type=String.class.getName();return type;
+			type="String";return type;
 		}else if(big.intValue()==Types.NCLOB){
 			type=NClob.class.getName();return type;
 		}else if(big.intValue()==Types.SQLXML){
@@ -241,17 +241,17 @@ public class ConfigUtil {
 //			System.err.println(dbTable.getTableName()+"\t");
 //			System.err.println(dbTable.getRemarks()+"\t");
 			List<DBColumn> lis = dbTable.getList();
-			AbstractBean bean=new AbstractBean();
+			final AbstractBean bean=new AbstractBean();
 			bean.setClassName(GenTest.camel(dbTable.getTableName()));
 			bean.setPack(pack);
 			List<AbstractProperty> listabs=new ArrayList<AbstractProperty>();
-			//TODO 常量待續
+			//TODO 常量待续
 			for (DBColumn dbColumn : lis) {
 				AbstractProperty ab=new AbstractProperty();
-				ab.setClassName(getType(dbColumn.getDataType()));
+				ab.setClassName(TypeConvert.getType(dbColumn.getDataType()));
 				ab.setProperty(GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())));
 				ab.setComment(dbColumn.getRemarks()!=null?dbColumn.getRemarks():"");
-				//TODO 常量待續
+				//TODO 常量待续
 //				GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())); field
 //				System.err.println(dbColumn.getColumnName());
 //				dbColumn.getTypeName(); class
@@ -262,7 +262,27 @@ public class ConfigUtil {
 				listabs.add(ab);
 			}
 			bean.setList(listabs);
+			new Thread(new GenCode(bean)).start();
 			GenTest.getByBean(bean);
 		}
 	}
+	class GenCode implements Runnable{
+
+		private AbstractBean constant;
+		
+		public GenCode(AbstractBean constant) {
+			super();
+			this.constant = constant;
+		}
+		public void run() {
+			try {
+				GenTest.getByBean(constant);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (TemplateException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	} 
 }
