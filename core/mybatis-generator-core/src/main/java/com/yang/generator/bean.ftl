@@ -9,7 +9,8 @@ public class ${className} {
 	*  ${property.comment}
 	*/
 	private ${property.className} ${property.property};
-	
+	</#list>
+	<#list properties as property>
 	public ${property.className} get${property.property?cap_first}() {
 		return ${property.property};
 	}
