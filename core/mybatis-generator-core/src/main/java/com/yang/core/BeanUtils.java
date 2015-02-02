@@ -35,16 +35,7 @@ public class BeanUtils {
 			}
 		}
 	} 
-	/**
-	 * JavaBean 工厂 无参构造函数
-	 * @param clazz
-	 * @return
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 */
-	public static <T> T beanFactory(Class<T> clazz) throws InstantiationException, IllegalAccessException{
-		return clazz.newInstance();
-	}
+
 	
 	/**
 	 * JavaBean工厂 有参构造函数
@@ -58,6 +49,9 @@ public class BeanUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static  <T> T beanFactory(Class<T> clazz,Object...objs) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
+		if(objs==null||objs.length==0){
+			return clazz.newInstance();
+		}
 		Constructor<?>[] constructors = clazz.getConstructors();
 		for (Constructor<?> constructor : constructors) {
 			Class<?>[] types = constructor.getParameterTypes();
