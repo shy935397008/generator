@@ -9,7 +9,7 @@ import com.yang.core.BeanUtils;
 public class BeanUtilTest {
 
 	@Test
-	public void test01() throws InstantiationException, IllegalAccessException{
+	public void test01() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 		BeanUtils.beanFactory(Tes.class);
 	}
 	@Test

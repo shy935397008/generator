@@ -24,17 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-
-
-
-
-
-
-
-
-
-
-
 import org.junit.Test;
 
 import com.yang.generator.GenTest;
@@ -65,11 +54,16 @@ public class ConfigUtil {
 		}		
 	}
 	public static Connection getConnection() throws SQLException{
+		try {
+			Thread.sleep(2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return  DriverManager.getConnection("jdbc:oracle:thin:@172.30.150.100:1521:orcl",p);
 	}
 	
 	public static List<DBColumn> getListColumn(String schema,String tableName) throws SQLException{
-		Connection conn =PoolUtil.getConn();
+		Connection  conn = PoolUtil.getConn();
 		DatabaseMetaData metaData = conn.getMetaData();
 		//---------------------------------column------------------------
 		ResultSet columns = metaData.getColumns(conn.getCatalog(),schema,tableName,null);
@@ -83,7 +77,7 @@ public class ConfigUtil {
 							+ "");
 //					System.err.println(GenTest.camel(ENUM.COLUMN.values()[i]+"")+"<>"+object);
 					if(object!=null){
-						map.put(GenTest.firstlower(GenTest.camel(ENUM.COLUMN.values()[i]+"")), object);						
+						map.put(StringUtil.firstlower(StringUtil.camel(ENUM.COLUMN.values()[i]+"")), object);						
 					}
 				} catch (Exception e) {
 					continue;
@@ -117,7 +111,7 @@ public class ConfigUtil {
 	}
 
 	public static List<DBTable> getListTable(String schema) throws SQLException{
-		Connection conn =PoolUtil.getConn();
+		Connection conn = PoolUtil.getConn();
 		DatabaseMetaData metaData = conn.getMetaData();
 		List<DBTable> list=new ArrayList<DBTable>();
 		ResultSet tables = metaData.getTables(conn.getCatalog(),schema, null, new String[]{"TABLE"});
@@ -129,13 +123,13 @@ public class ConfigUtil {
 				try {
 					object = tables.getObject(ENUM.TABLE.values()[i]
 							+ "");
-					map.put(GenTest.firstlower(GenTest.camel(ENUM.TABLE.values()[i]+"")), object);	
+					map.put(StringUtil.firstlower(StringUtil.camel(ENUM.TABLE.values()[i]+"")), object);	
 				} catch (Exception e) {
 					continue;
 				}
 				
 			}
-			Object object = map.get(GenTest.firstlower(GenTest.camel(ENUM.TABLE.TABLE_NAME+"")));
+			Object object = map.get(StringUtil.firstlower(StringUtil.camel(ENUM.TABLE.TABLE_NAME+"")));
 			List<DBColumn> column = getListColumn(schema,object+"");
 			map.put("list", column);
 			BeanUtils.map2Bean(tab, map);
@@ -241,15 +235,16 @@ public class ConfigUtil {
 //			System.err.println(dbTable.getTableName()+"\t");
 //			System.err.println(dbTable.getRemarks()+"\t");
 			List<DBColumn> lis = dbTable.getList();
-			final AbstractBean bean=new AbstractBean();
-			bean.setClassName(GenTest.camel(dbTable.getTableName()));
+			Constant bean=new Constant();
+			bean.setClassName(StringUtil.camel(dbTable.getTableName()));
 			bean.setPack(pack);
-			List<AbstractProperty> listabs=new ArrayList<AbstractProperty>();
+			bean.setComment(dbTable.getRemarks()!=null?dbTable.getRemarks():"");
+			List<Property> listabs=new ArrayList<Property>();
 			//TODO 常量待续
 			for (DBColumn dbColumn : lis) {
-				AbstractProperty ab=new AbstractProperty();
+				Property ab=new Property();
 				ab.setClassName(TypeConvert.getType(dbColumn.getDataType()));
-				ab.setProperty(GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())));
+				ab.setProperty(StringUtil.firstlower(StringUtil.camel(dbColumn.getColumnName())));
 				ab.setComment(dbColumn.getRemarks()!=null?dbColumn.getRemarks():"");
 				//TODO 常量待续
 //				GenTest.firstlower(GenTest.camel(dbColumn.getColumnName())); field
@@ -259,27 +254,39 @@ public class ConfigUtil {
 //				System.err.println(dbColumn.getDataType());
 //				dbColumn.getRemarks() comment
 				//System.err.println(dbColumn.getRemarks());
+				ab.setValue(dbColumn.getRemarks()!=null?dbColumn.getRemarks():"");
 				listabs.add(ab);
 			}
 			bean.setList(listabs);
-			new Thread(new GenCode(bean)).start();
-			GenTest.getByBean(bean);
+			JavaBeanTmp tmp=new JavaBeanTmp();
+			System.err.println(tmp.javaBean(bean, 0));
+//			new Thread(new GenCode(bean,true)).start();
+//			new Thread(new GenCode(bean,false)).start();
+//			GenTest.getByBean(bean);
 		}
 	}
 	class GenCode implements Runnable{
 
-		private AbstractBean constant;
+		private Constant constant;
+		private boolean boo;
 		
-		public GenCode(AbstractBean constant) {
+		public GenCode(Constant constant,boolean boo) {
 			super();
 			this.constant = constant;
+			this.boo=boo;
 		}
 		public void run() {
 			try {
-				GenTest.getByBean(constant);
+				if(boo){
+					GenTest.getByBean(constant);
+				}else{
+					GenTest.genWithConstant(constant);
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (TemplateException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 		}

@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.yang.generator.GenTest;
 /**
  *javaBean 反射工具栏 
  *
@@ -18,7 +17,7 @@ public class BeanUtils {
 				if(obj!=null){
 					try {
 						if(ent.getValue()!=null){
-							obj.getClass().getMethod("set"+GenTest.firstUpper(ent.getKey()),ent.getValue().getClass()).invoke(obj, ent.getValue());							
+							obj.getClass().getMethod("set"+StringUtil.firstUpper(ent.getKey()),ent.getValue().getClass()).invoke(obj, ent.getValue());							
 						}
 					} catch (IllegalArgumentException e) {
 						e.printStackTrace();
@@ -38,7 +37,7 @@ public class BeanUtils {
 
 	
 	/**
-	 * JavaBean工厂 有参构造函数
+	 * JavaBean工厂 
 	 * @param clazz
 	 * @param objs
 	 * @return

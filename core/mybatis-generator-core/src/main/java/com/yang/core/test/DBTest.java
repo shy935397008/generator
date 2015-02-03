@@ -28,7 +28,7 @@ public class DBTest {
 	}
 	@Test
 	public void test03() throws SQLException{
-		for (int i = 0; i <200; i++) {
+		for (int i = 0; i <20; i++) {
 //			System.err.println(i);
 			Connection conn = ConfigUtil.getConnection();
 			Assert.assertTrue(conn!=null);	
@@ -37,7 +37,7 @@ public class DBTest {
 	}
 	@Test
 	public void test02() throws SQLException{
-		for (int i = 0; i <200; i++) {
+		for (int i = 0; i <20; i++) {
 //			System.err.println(i);
 			Connection conn = PoolUtil.getConn();
 			Assert.assertTrue(conn!=null);	

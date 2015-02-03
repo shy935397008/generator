@@ -235,9 +235,9 @@ public class GenTest {
 		genBean(f.toURI().toString());
 	}
 
-	/**
+	/**@deprecated
 	 * 首字母大写
-	 * 
+	 * StringUtil.firstUpper(String str);
 	 * @param str
 	 * @return
 	 */
@@ -249,9 +249,9 @@ public class GenTest {
 		return new String(cs);
 	}
 
-	/**
+	/**@deprecated
 	 * 首字母大写
-	 * 
+	 * @see StringUtil.firstlower(String str);
 	 * @param str
 	 * @return
 	 */
@@ -357,7 +357,8 @@ public class GenTest {
 
 	/**
 	 * 驼峰书写
-	 * 
+	 * @see StringUtil.camel(String str)
+	 * @deprecated
 	 * @param str
 	 *            abc_abc→AbcAbc
 	 * @return
@@ -417,6 +418,43 @@ public class GenTest {
 
 		// --------------------------------------------5.VIEW----------------------------------------------------------------
 		// TODO GEN HTML
+	}
+	public static  void genWithConstant(AbstractBean constant) throws IOException, TemplateException{
+		String dir = constant.getPack().replaceAll(UNBIAS + DOT,
+				File.separator + File.separator);
+//		String[] split = constant.getPack().split("\\.");
+		String baseDir = dir.substring(0,
+				dir.lastIndexOf(File.separator));
+		String beanDir = null;
+		beanDir = baseDir + File.separator + CONSTANT;
+		
+		genDir(beanDir);
+		String filePath = beanDir + File.separator
+				+ constant.getClassName() + DOT + JAVA;
+		File f = new File(filePath);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(PACKAGE, constant.getPack());
+		map.put(CLASSNAME, constant.getClassName());
+		map.put(PROPERTITES, constant.getList());
+		map.put(IMPORT, constant.getImports());
+		genSource(map, CONSTANTTMP, f);
+			// properties 常量
+		String cons = baseDir + File.separator + CONSTANT;
+		genDir(cons);
+		@SuppressWarnings("unchecked")
+		List<Property> list = (List<Property>) constant.getList();
+		Properties p = new Properties();
+		for (Property pro : list) {
+			p.put(constant.getPack() + DOT
+					+ constant.getClassName() + DOT
+					+ pro.getProperty(), pro.getValue());
+		}
+		File constantFile = new File(cons + File.separator
+				+ constant.getClassName() + DOT + PROPERTITES);
+		OutputStream os = new FileOutputStream(constantFile);
+		p.store(os, constant.getComment() + " property");
+		os.flush();
+		os.close();
 	}
 
 	public static void main(String[] args) throws ParserConfigurationException,
