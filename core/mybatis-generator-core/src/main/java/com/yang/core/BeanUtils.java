@@ -36,8 +36,8 @@ public class BeanUtils {
 	} 
 
 	
-	/**
-	 * JavaBean工厂 
+	/**大量（>8000）生成时速度慢,少量是用此方法<br/>
+	 * JavaBean工厂  
 	 * @param clazz
 	 * @param objs
 	 * @return
@@ -68,4 +68,8 @@ public class BeanUtils {
 		}
 		return null;
 	}
+	public static Object beanFactory(String clazzName) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+		return  Class.forName(clazzName).newInstance();
+	}
+	
 }

@@ -1,71 +1,55 @@
 package com.yang.core;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Test;
 
 import com.yang.core.AbstractProperty;
-import com.yang.core.BeanUtils;
-import com.yang.core.Constant;
-import com.yang.core.Property;
 import com.yang.core.StringUtil;
 
 public class JavaBeanTmp {
-	@Test
-	public void test01() throws IOException, IllegalArgumentException,
-			InstantiationException, IllegalAccessException,
-			InvocationTargetException {
-		File dir = new File("com\\yang\\test");
-		if (!dir.exists()) {
-			dir.mkdirs();
-		}
-		OutputStream os = new FileOutputStream("com\\yang\\test\\TT.java");
-		Property p = BeanUtils.beanFactory(Property.class);
-		Property p2 = BeanUtils.beanFactory(Property.class);
-		p.setClassName("java.util.Date");
-		p.setProperty("date");
-		p2.setClassName("java.lang.String");
-		p2.setProperty("id");
-		Constant con=BeanUtils.beanFactory(Constant.class);
-		con.setClassName("com.yang.test.TT");
-//		Set<String> set=new HashSet<String>();
-//		set.add("java.util.Date");
-		List<Property> prop = Arrays.asList(new Property[] { p,p2 });
-		con.setList(prop);
-//		con.setImports(set);
-//		con.setPack("com.yang.test");
-		con.format();
-		byte[] b = javaBean(con, 0).getBytes();
-		os.write(b);
-		os.flush();
-		os.close();
-	}
 
-	public  String javaBean(Constant constant,int indent) {
+	/**
+	 * JavaBean Ä£°å
+	 * @param constant JavaBean
+	 * @param indent Ëõ½øÖµ
+	 * @return
+	 */
+	public  String javaBean(AbstractBean constant,int indent) {
 		String pack=constant.getPack();
 		String className=constant.getClassName();
 		Set<String> imps=constant.getImports();
 		List<? extends AbstractProperty> prop=constant.getList();
 		StringBuffer sb = new StringBuffer();
+		//package
 		sb.append(Const.PACKAGE).append(Const.BLANK).append(pack).append(Const.SEMICOLON)
 				.append(Const.NEWLINE).append(Const.NEWLINE);
+		//import
 		for (String string : imps) {
 			sb.append(Const.IMPORT).append(Const.BLANK).append(string).append(Const.SEMICOLON)
 					.append(Const.NEWLINE);
 		}
 		sb.append(Const.NEWLINE);
+		//class
+		if(constant.getComment()!=null){
+			sb.append("/**").append(Const.NEWLINE);
+			sb.append("** ").append(constant.getClassName()).append(" ").append(constant.getComment()).append(Const.NEWLINE);
+			sb.append("**/").append(Const.NEWLINE);
+		}
 		sb.append(Const.PUBLIC).append(Const.BLANK).append(Const.CLASS).append(Const.BLANK)
 				.append(className).append("{").append(Const.NEWLINE).append(Const.NEWLINE);
 		indent++;
 		//field
 		for (AbstractProperty pro : prop) {
+			System.err.println(pro.getClass().getName());
+			if(pro.getComment()!=null){
+				tab(sb, indent);
+				sb.append("/**").append(Const.NEWLINE);
+				tab(sb, indent);
+				sb.append("**").append(pro.getClassName()).append(" ").append(pro.getComment()).append(Const.NEWLINE);
+				tab(sb, indent);
+				sb.append("**/").append(Const.NEWLINE);
+			}
 			tab(sb, indent);
 			sb.append(Const.PRIVATE).append(Const.BLANK).append(pro.getClassName())
 					.append(Const.BLANK).append(pro.getProperty()).append(Const.SEMICOLON)
@@ -114,8 +98,13 @@ public class JavaBeanTmp {
 		return sb.toString();
 	}
 
-	public static void tab(StringBuffer sb, int index) {
-		for (int i = 0; i < index; i++) {
+	/**@deprecated
+	 * {@link StringUtil#tab(StringBuffer, int)}
+	 * @param sb
+	 * @param indent
+	 */
+	public static void tab(StringBuffer sb, int indent) {
+		for (int i = 0; i < indent; i++) {
 			sb.append(Const.TAB);
 		}
 	}

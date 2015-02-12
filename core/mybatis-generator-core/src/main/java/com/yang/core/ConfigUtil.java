@@ -138,8 +138,7 @@ public class ConfigUtil {
 		close(tables,conn);
 		return list;
 	}
-	/**
-	 * @see TypeConvert.getType(BigDecimal big);
+	/**{@link TypeConvert#getType(BigDecimal) }
 	 * @param big
 	 * @return
 	 *@Deprecated

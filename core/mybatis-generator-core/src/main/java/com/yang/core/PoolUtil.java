@@ -31,7 +31,12 @@ public class PoolUtil {
 //		System.err.println(i);
 		Connection con= (Connection) map.get(i);
 		i++;
-		return con;
+		if(con!=null){
+			return con;
+		}else{
+			i--;
+			return getConn();
+		}
 	}
 	
 }

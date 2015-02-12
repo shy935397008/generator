@@ -5,9 +5,11 @@ import ${imp};
 public class ${className} {
 
 	<#list properties as property>
+	<#if property.comment??>
 	/**
-	*  ${property.comment}
+	*${property.comment}
 	*/
+	</#if>
 	private ${property.className} ${property.property};
 	</#list>
 	<#list properties as property>

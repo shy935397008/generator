@@ -29,7 +29,9 @@ import org.xml.sax.SAXException;
 
 import com.yang.core.AbstractBean;
 import com.yang.core.Constant;
+import com.yang.core.JavaBeanTmp;
 import com.yang.core.Property;
+import com.yang.core.StringUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -235,12 +237,13 @@ public class GenTest {
 		genBean(f.toURI().toString());
 	}
 
-	/**@deprecated
-	 * 首字母大写
-	 * StringUtil.firstUpper(String str);
+	/**
+	 * 首字母大写<br>
+	 * {@link StringUtil#firstUpper(String) };
 	 * @param str
 	 * @return
 	 */
+	@Deprecated
 	public static String firstUpper(String str) {
 		char[] cs = str.toCharArray();
 		if (Character.isLowerCase(cs[0])) {
@@ -249,12 +252,13 @@ public class GenTest {
 		return new String(cs);
 	}
 
-	/**@deprecated
-	 * 首字母大写
-	 * @see StringUtil.firstlower(String str);
+	/**
+	 * 首字母大写<br>
+	 *{@link StringUtil#firstlower(String) }
 	 * @param str
 	 * @return
 	 */
+	@Deprecated
 	public static String firstlower(String str) {
 		char[] cs = str.toCharArray();
 		if (Character.isUpperCase(cs[0])) {
@@ -280,7 +284,7 @@ public class GenTest {
 
 	/**
 	 * 根据模板生成文件
-	 * 
+	 * @see {@link JavaBeanTmp#javaBean(Constant, int)}
 	 * @param map
 	 *            数据 model
 	 * @param tmpName
@@ -324,13 +328,13 @@ public class GenTest {
 	}
 
 	/**
-	 * 用来生产dao或 service或 constroller
-	 * 
+	 * 用来生产dao或 service或 constroller<br>
+	 * {@link #genSource(Map, String, File)}
 	 * @param baseDir
 	 * @param map
 	 * @param constant
 	 * @param layer
-	 *            DAO/SERVICE/CONTROLLER
+	 *            {@link #DAO }、{@link #SERVICE}、{@link #CONTROLLER}
 	 * @param tmp
 	 *            模板
 	 * @param list
@@ -356,13 +360,13 @@ public class GenTest {
 	}
 
 	/**
-	 * 驼峰书写
-	 * @see StringUtil.camel(String str)
-	 * @deprecated
+	 * 驼峰书写<br>
+	 * {@linkplain StringUtil#camel(String) }
 	 * @param str
 	 *            abc_abc→AbcAbc
 	 * @return
 	 */
+	@Deprecated
 	public static String camel(String str) {
 		str = str.toLowerCase();
 		if (str.contains("_")) {
@@ -376,6 +380,12 @@ public class GenTest {
 		return firstUpper(str);
 	}
 
+	/**
+	 * 根据bean生成JavaBean文件
+	 * @param constant
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
 	public static void getByBean(AbstractBean constant) throws IOException,
 			TemplateException {
 		// ----------------------1.bean--------------------------
@@ -419,6 +429,12 @@ public class GenTest {
 		// --------------------------------------------5.VIEW----------------------------------------------------------------
 		// TODO GEN HTML
 	}
+	/**
+	 * 根据bean生成常量文件
+	 * @param constant
+	 * @throws IOException
+	 * @throws TemplateException
+	 */
 	public static  void genWithConstant(AbstractBean constant) throws IOException, TemplateException{
 		String dir = constant.getPack().replaceAll(UNBIAS + DOT,
 				File.separator + File.separator);

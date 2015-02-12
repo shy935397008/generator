@@ -48,4 +48,14 @@ public class StringUtil {
 		}
 		return firstUpper(str);
 	}
+	/**
+	 * 文件内容缩进
+	 * @param sb
+	 * @param indent
+	 */
+	public static void tab(StringBuffer sb, int indent) {
+		for (int i = 0; i < indent; i++) {
+			sb.append(Const.TAB);
+		}
+	}
 }

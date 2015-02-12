@@ -7,6 +7,11 @@ import java.util.Set;
 
 public class Constant extends AbstractBean{
 
+	/**
+	 * 自动生成相关属性 <br>
+	 * ClassName<br>
+	 * Imports
+	 */
 	public void format(){
 		Set<String> sets=new HashSet<String>();
 		List<? extends AbstractProperty> prop = getList();
@@ -15,7 +20,6 @@ public class Constant extends AbstractBean{
 			if(name!=null&&name.contains(".")){
 				Set<String> set = getImports();
 				if(set!=null){
-					set.add(name);
 					String[] split = name.split("\\.");
 					if(split.length>0){
 						if(!name.contains("java.lang")){
