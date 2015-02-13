@@ -37,4 +37,9 @@ public class MySqlConnection implements ConnectionInterface {
 		return null;
 	}
 
+
+	public Object getFromURL() {
+		throw new UnsupportedOperationException("²»Ö§³Ö");
+	}
+
 }
