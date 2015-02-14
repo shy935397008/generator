@@ -31,7 +31,7 @@ public class StockJob {
 			int w = ca.get(Calendar.DAY_OF_WEEK);
 			System.err.println(h+"--"+m+w+s);
 			boolean run = false;
-			if (h == 9 && m > 30) {
+			if (h == 9 && m > 29) {
 				run = true;
 			} else if (h > 9 && h < 15) {
 				run = true;
