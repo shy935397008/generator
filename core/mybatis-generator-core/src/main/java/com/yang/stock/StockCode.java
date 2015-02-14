@@ -10,13 +10,14 @@ import javax.xml.bind.Unmarshaller;
 
 public class StockCode {
 
-	public static void main(String[] args) throws JAXBException {
+	public List<A> getAllCode() throws JAXBException {
 		List<A> list=new ArrayList<A>();
 		StockCode stockCode = new StockCode();
 		stockCode.getStockCode("aaa.xml", list);
 		stockCode.getStockCode("bbb.xml", list);
 		stockCode.getStockCode("ccc.xml", list);
 		System.err.println(list.size());
+		return list;
 	}
 	public void getStockCode(String fileName,List<A> list) throws JAXBException{
 		JAXBContext ctx = JAXBContext.newInstance(UL.class);

@@ -2,23 +2,28 @@ package com.yang.stock;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.xml.bind.JAXBException;
+
 public class StockJob {
 
-	public void startJob() {
+	public void startJob(String code) {
 		Timer timer = new Timer();
-		TimerTask task = new MyTimerTask();
+		TimerTask task = new MyTimerTask(code);
 		timer.schedule(task, 1, 5000);
 	}
 
 	class MyTimerTask extends TimerTask {
 
-		private StockService service = new StockService();
+		private StockService service;
 
-		public MyTimerTask() {
+		public MyTimerTask(String code) {
 			super();
+//			this.code=code;
+			service = new StockService(code);
 		}
 
 		@Override
@@ -49,7 +54,10 @@ public class StockJob {
 		}
 
 	}
-	public static void main(String[] args) {
-		new StockJob().startJob();
+	public static void main(String[] args) throws JAXBException {
+		List<A> list = new StockCode().getAllCode();
+		for (A a : list) {
+			new StockJob().startJob(a.getValue().split(" ")[1]);
+		}
 	}
 }

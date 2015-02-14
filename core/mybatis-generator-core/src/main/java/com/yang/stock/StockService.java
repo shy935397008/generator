@@ -10,8 +10,13 @@ import com.yang.stock.bean.Stock;
 public class StockService {
 
 	private StockDao dao=new StockDao();
-	private ObjectConnection connection=new ObjectConnection();
+	private ObjectConnection connection;
 	
+	public StockService(String code) {
+		super();
+//		this.code=code;
+		connection=new ObjectConnection(code);
+	}
 	public void insert() throws SQLException{
 		Object object = connection.getFromURL();
 		if(object instanceof List){
@@ -25,13 +30,6 @@ public class StockService {
 				}
 			}
 			dao.batchInsert(lis);
-		}
-	}
-	public static void main(String[] args) {
-		try {
-			new StockService().insert();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 }
