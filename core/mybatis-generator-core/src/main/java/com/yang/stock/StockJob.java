@@ -13,7 +13,7 @@ public class StockJob {
 	public void startJob(String code) {
 		Timer timer = new Timer();
 		TimerTask task = new MyTimerTask(code);
-		timer.schedule(task, 1, 5000);
+		timer.schedule(task, 100, 5000);
 	}
 
 	class MyTimerTask extends TimerTask {
@@ -54,9 +54,10 @@ public class StockJob {
 		}
 
 	}
-	public static void main(String[] args) throws JAXBException {
+	public static void main(String[] args) throws JAXBException, InterruptedException {
 		List<A> list = new StockCode().getAllCode();
 		for (A a : list) {
+			Thread.sleep(1);
 			new StockJob().startJob(a.getValue().split(" ")[1]);
 		}
 	}
