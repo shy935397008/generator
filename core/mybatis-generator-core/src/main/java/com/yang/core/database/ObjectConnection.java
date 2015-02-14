@@ -25,24 +25,29 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.yang.stock.bean.Stocks;
+import com.yang.stock.bean.Stock;
 
 public class ObjectConnection implements ConnectionInterface {
 
 	private String url;// "http://stockpage.10jqka.com.cn/spService/601818/Header/realPlate"
 
+	private String code;
+	
 	public ObjectConnection() {
 		super();
+		this.code="601818";
 		url="http://stockpage.10jqka.com.cn/spService/601818/Header/realPlate";
 	}
 
 	public ObjectConnection(String url, String code) {
 		super();
 		this.url = url;
+		this.code=code;
 	}
 
 	public ObjectConnection(String code) {
 		super();
+		this.code=code;
 		this.url = "http://stockpage.10jqka.com.cn/spService/" + code
 				+ "/Header/realPlate";
 	}
@@ -79,11 +84,11 @@ public class ObjectConnection implements ConnectionInterface {
 						table.getBytes("utf-8"));
 				Document doc = builder.parse(bis);
 				NodeList node = doc.getElementsByTagName("tr");
-				List<Stocks> list=new ArrayList<Stocks>();
+				List<Stock> list=new ArrayList<Stock>();
 				for (int i = 0; i < node.getLength(); i++) {
 					Node item = node.item(i);
 					NodeList childNodes = item.getChildNodes();
-					Stocks st = new Stocks();
+					Stock st = new Stock();
 					Date date = new Date();
 					SimpleDateFormat format = new SimpleDateFormat(
 							"yyyy-MM-dd ");
@@ -94,6 +99,7 @@ public class ObjectConnection implements ConnectionInterface {
 					st.setCode(childNodes.item(1).getFirstChild()
 							.getAttributes().item(0).getTextContent()
 							.replaceAll("/", ""));
+					st.setStockCode(code);
 					System.err.println(st);
 					list.add(st);
 				}

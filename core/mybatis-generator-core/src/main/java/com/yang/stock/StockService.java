@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yang.core.database.ObjectConnection;
-import com.yang.stock.bean.Stocks;
+import com.yang.stock.bean.Stock;
 
 public class StockService {
 
@@ -16,9 +16,9 @@ public class StockService {
 		Object object = connection.getFromURL();
 		if(object instanceof List){
 			@SuppressWarnings("unchecked")
-			List<Stocks> list=(List<Stocks>) object;
-			List<Stocks> lis=new ArrayList<Stocks>();
-			for (Stocks stocks : list) {
+			List<Stock> list=(List<Stock>) object;
+			List<Stock> lis=new ArrayList<Stock>();
+			for (Stock stocks : list) {
 				int i = dao.count(stocks);
 				if(i==0){
 					lis.add(stocks);

@@ -13,4 +13,7 @@ public class ConnectionContext {
 	public Connection getConnection(){
 		return connectionInterface.getConnection();
 	}
+	public Object getFromURL(){
+		return connectionInterface.getFromURL();
+	}
 }
