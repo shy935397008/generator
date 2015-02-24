@@ -20,9 +20,9 @@ public class SendEmail {
 		email.setHostName("smtp.163.com");
 		// email.setSmtpPort(465);
 		email.setAuthenticator(new DefaultAuthenticator(
-				"yanghongsheng89@163.com", "896638"));
-		email.addTo("shy935397008@163.com", "John Doe");
-		email.setFrom("yanghongsheng89@163.com", "Me");
+				"", ""));
+		email.addTo("", "John Doe");
+		email.setFrom("", "Me");
 		email.setSubject("The picture");
 		email.setMsg("Here is the picture you wanted");
 
