@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://shy935397008.github.io" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://shy935397008.github.io bean.xsd ">
+	xsi:schemaLocation="http://shy935397008.github.io bean.xsd">
 	<bean className="com.yang.entity.User">
 		<property className="java.lang.String" property="id" />
 		<property className="java.lang.String" property="name" />

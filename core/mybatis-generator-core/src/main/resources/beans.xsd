@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/beans"
+	xmlns:tns="http://www.example.org/beans" elementFormDefault="qualified">
+	<attribute name="className" type="string"></attribute>
+	<attribute name="name" type="string"></attribute>
+	<complexType name="beanType">
+		<sequence minOccurs="1" maxOccurs="unbounded">
+			<element name="property" minOccurs="1" maxOccurs="unbounded">
+				<complexType>
+					<attribute ref="tns:className" use="required"></attribute>
+					<attribute ref="tns:name" use="required"></attribute>
+				</complexType>
+			</element>
+		</sequence>
+		<attribute ref="tns:className" use="required"></attribute>
+	</complexType>
+	<element name="beans">
+		<complexType>
+			<sequence>
+				<element name="document" minOccurs="0" maxOccurs="unbounded" type="string"></element>
+				<element name="bean" type="tns:beanType" minOccurs="1" maxOccurs="unbounded"/>
+			</sequence>
+		</complexType>
+	</element>
+</schema>

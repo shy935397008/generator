@@ -57,8 +57,7 @@ public class StockJob {
 	public static void main(String[] args) throws JAXBException, InterruptedException {
 		List<A> list = new StockCode().getAllCode();
 		for (A a : list) {
-			Thread.sleep(1);
-			new StockJob().startJob(a.getValue().split(" ")[1]);
+			new StockJob().startJob(a.getHref().split(",")[1]);
 		}
 	}
 }
