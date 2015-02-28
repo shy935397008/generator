@@ -34,23 +34,23 @@ public class TypeConvert {
 	public static String getType(BigDecimal big){
 		String type="void";
 		if(big.intValue()==Types.BIT){
-			type="int";return type;
+			type="Boolean";return type;
 		}else if(big.intValue()==Types.TINYINT){
-			type="int";return type;
+			type="Bute";return type;
 		}else if(big.intValue()==Types.SMALLINT){
-			type="int";return type;
+			type="Integer";return type;
 		}else if(big.intValue()==Types.INTEGER){
-			type="int";return type;
+			type="Integer";return type;
 		}else if(big.intValue()==Types.BIGINT){
-			type="int";return type;
+			type="Long";return type;
 		}else if(big.intValue()==Types.FLOAT){
-			type="float";return type;
+			type="Double";return type;
 		}else if(big.intValue()==Types.REAL){
-			type="boolean";return type;
+			type="Float";return type;
 		}else if(big.intValue()==Types.DOUBLE){
-			type="double";return type;
+			type="Double";return type;
 		}else if(big.intValue()==Types.NUMERIC){
-			type="double";return type;
+			type="java.math.BigDecimal";return type;
 		}else if(big.intValue()==Types.DECIMAL){
 			type=BigDecimal.class.getName();return type;
 		}else if(big.intValue()==Types.CHAR){
